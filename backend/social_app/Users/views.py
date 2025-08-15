@@ -15,7 +15,8 @@ from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from .serializers import (
     UserRegisterAPIViewSerializer,
     UserLoginAPIViewSerializer,
-    TokenRefreshAPIViewSerializer
+    TokenRefreshAPIViewSerializer,
+    RegisterSerializer
 )
 
 
@@ -42,7 +43,6 @@ class RegisterAPIView(APIView):
             "username": user.username
         }
         return Response(response_data, status=status.HTTP_201_CREATED)
-
 
 class LoginAPIView(APIView):
     permission_classes = [AllowAny]
@@ -127,6 +127,7 @@ class ProtectedAPIView(APIView):
 # 2. Using genericView/other built-in view
 class RegisterGenericView(generics.CreateAPIView):
     permission_classes = [AllowAny]
+    serializer_class = RegisterSerializer
     
 
 

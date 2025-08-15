@@ -8,7 +8,8 @@ from .views import (
     RegisterAPIView,
     LoginAPIView,
     ProtectedAPIView,
-    TokenRefreshAPIView
+    TokenRefreshAPIView,
+    RegisterGenericView
 )
 
 
@@ -19,6 +20,8 @@ urlpatterns = [
     path('apiview/token/refresh', TokenRefreshAPIView.as_view(), name='profile'),
     path('apiview/protected/', ProtectedAPIView.as_view(), name='protected_api'),
 
+    #API using GenericAPIView
+    path('register/', RegisterGenericView.as_view(), name='register_generic'),
 
     # JWT
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

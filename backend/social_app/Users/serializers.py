@@ -68,4 +68,13 @@ class TokenRefreshAPIViewSerializer(serializers.Serializer):
         return data
 
 
-#class RegisterSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(max_length=128, write_only=True)
+
+    class Meta:
+        model = Users
+        fields = ['username', 'email', 'password']
+
+    def create(self, validated_data):
+        validated_data['password'] = validated_data['password']
+        return super().create(validated_data)
