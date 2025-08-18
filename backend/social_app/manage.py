@@ -12,7 +12,7 @@ def main():
 
     os.environ.setdefault(
         'DJANGO_SETTINGS_MODULE',
-        os.getenv("DJANGO_SETTINGS_MODULE", "social_app.settings.local")
+        os.getenv("DJANGO_SETTINGS_MODULE", "social_app.settings.develop")
     )
 
     try:

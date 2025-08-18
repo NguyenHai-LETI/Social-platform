@@ -1,6 +1,7 @@
+import os
 from .base import *  #load toàn bộ mã trong base.py
 
-environ.Env.read_env(os.path.join(BASE_DIR.parent, "../../envs/develop.env"))
+environ.Env.read_env(os.path.join(BASE_DIR.parent.parent, "envs/develop.env"))
 
 DEBUG = True
 ALLOWED_HOSTS = ["*"]

@@ -2,5 +2,5 @@
 .idea/
 
 # Bỏ qua thư mục môi trường ảo của Python
-venv_backend/
+backend_env/
 __pycache__/

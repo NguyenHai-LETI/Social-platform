@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Init envs
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR.parent, "envs/common.env"))
+environ.Env.read_env(os.path.join(BASE_DIR.parent.parent, "envs/common.env"))
 
 # Core security
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="unsafe-secret-key")
@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "user",
+    "users",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
