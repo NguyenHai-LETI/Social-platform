@@ -1,9 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from common.models import BaseModel
 
 
-class User(AbstractUser):
-    # AbstractUser đã có username, password, email, last_login, is_active, ...
+class User(AbstractUser, BaseModel):
+    """AbstractUser đã có username, password, email, last_login, is_active, ...
+        BaseModel đã khai báo các trường phổ biến crate_at update_at
+    """
 
     full_name = models.CharField(max_length=30)
     date_of_birth = models.DateField(null=True, blank=True)
@@ -18,8 +21,6 @@ class User(AbstractUser):
     current_city = models.CharField(max_length=30, null=True, blank=True)
     is_online = models.BooleanField(default=False)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     # Cần set email là trường xác thực chính
     REQUIRED_FIELDS = []  # các trường cần thêm khi tạo superUser

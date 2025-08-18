@@ -1,4 +1,5 @@
 from tokenize import TokenError
+import logging
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -19,7 +20,7 @@ from .serializers import (
     RegisterSerializer
 )
 
-
+logger = logging.getLogger('myapp')
 # Define 2 methods for register-login: using APIView and using genericsView/others built-in view with serializers support
 # 1. Using APIView
 class RegisterAPIView(APIView):
@@ -37,6 +38,8 @@ class RegisterAPIView(APIView):
 
         # Tạo user -> gọi tới create()
         user = serializer.save()
+        logger.info(f"Successfully register with username: {user.username}")
+
         response_data = {
             "message": "Đăng ký thành công. Vui lòng login để lấy token.",
             "user_id": user.id,
@@ -66,6 +69,9 @@ class LoginAPIView(APIView):
         access_token = str(refresh.access_token)
         refresh_token = str(refresh)
 
+        # Ghi log thành công khi login
+        logger.info(f"User {user.username} logged in successfully")
+
         response_data = {
             "message": "Đăng nhập thành công. Sử dụng serializers",
             "token": access_token,
@@ -92,6 +98,8 @@ class TokenRefreshAPIView(APIView):
             refresh = RefreshToken(refresh_token)
             # tạo access_token mới
             access_token = str(refresh.access_token)
+            logger.info(f"Successfully refresh token!")
+
             response_data = {
                 'message': 'Lấy access token và refresh token mới thành công',
                 'access_token': access_token,

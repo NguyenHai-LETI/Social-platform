@@ -43,6 +43,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'social_app.middleware.RequestIDMiddleware', #request_id cho logging
 ]
 
 ROOT_URLCONF = "social_app.urls"
@@ -81,6 +82,7 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "common.handlers.custom_exception_handler",
 }
 
 # JWT
@@ -150,3 +152,60 @@ STATIC_URL = "static/"
 
 # Default PK
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+#Logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    #định dạng log
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} [{name}:{lineno}] {message}",
+            "style": "{",
+        },
+    },
+
+    #Vị trí ghi logs
+    "handlers": {
+        #ghi log level INFOR  vào access.log
+        "file": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR.parent, "logs/access.log"),
+            "maxBytes": 1024 * 1024 * 5,  # 5MB
+            "backupCount": 5,
+            "formatter": "verbose",
+        },
+        #ghi log level ERROR vào error.log
+        "error_file": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR.parent, "logs/error.log"),
+            "maxBytes": 1024 * 1024 * 5, #rotate khi đạt 5MB
+            "backupCount": 5,   #tạo tối đa 5 file log
+            "formatter": "verbose",
+        },
+        #ghi log từ level DEBUG ra terminal
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+
+    "loggers": {
+        #logger này sẽ nhận log từ các module của Django
+        "django": {
+            "handlers": ["file", "error_file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        #log dùng trong view service mã nội bộ
+        "myapp": {
+            "handlers": ["file", "error_file", "console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+}
+

@@ -1,0 +1,8 @@
+[2025-08-18 15:25:00,975] ERROR [django.request:253] Internal Server Error: /api/api-view/register/
+[2025-08-18 15:25:00,977] ERROR [django.server:213] "POST /api/api-view/register/ HTTP/1.1" 500 108
+[2025-08-18 15:26:47,716] ERROR [django.request:253] Internal Server Error: /api/api-view/register/
+[2025-08-18 15:26:47,717] ERROR [django.server:213] "POST /api/api-view/register/ HTTP/1.1" 500 108
+[2025-08-18 15:33:32,611] ERROR [django.request:253] Internal Server Error: /api/api-view/register/
+[2025-08-18 15:33:32,612] ERROR [django.server:213] "POST /api/api-view/register/ HTTP/1.1" 500 108
+[2025-08-18 15:35:34,211] ERROR [django.request:253] Internal Server Error: /api/api-view/register/
+[2025-08-18 15:35:34,212] ERROR [django.server:213] "POST /api/api-view/register/ HTTP/1.1" 500 108

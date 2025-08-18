@@ -17,7 +17,7 @@ class UserRegisterAPIViewSerializer(serializers.Serializer):
         return value
 
     def validate_email(self, value):
-        if Users.objects.filter(email=value).exists():
+        if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("Email already exists")
         return value
 
@@ -32,7 +32,7 @@ class UserRegisterAPIViewSerializer(serializers.Serializer):
         username = validated_data['username']
         email = validated_data['email']
         password = validated_data['password']
-        user = Users.objects.create_user(
+        user = User.objects.create_user(
             username=username,
             email=email,
             password=password
