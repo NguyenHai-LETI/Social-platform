@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Users(AbstractUser):
+class User(AbstractUser):
     # AbstractUser đã có username, password, email, last_login, is_active, ...
 
     full_name = models.CharField(max_length=30)
@@ -28,9 +28,9 @@ class Users(AbstractUser):
         return f"{self.full_name} : {self.date_of_birth}"
 
     class Meta:
-        db_table = "Users"  # tên bảng trong db
+        db_table = "users"  # tên bảng trong db
         verbose_name = "User"  # tên trong admin
-        verbose_name_plural = "Users"  # tên số nhiều
+        verbose_name_plural = "users"  # tên số nhiều
         ordering = ['-created_at']  # thứ tự truy vấn trong db theo created time
         # unique_together = (('username', 'phone_number'),)  # đảm bảo không cặp username và phone là duy nhất
 

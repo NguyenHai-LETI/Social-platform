@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
-from .models import Users
+from .models import User
 
 
 # Using basic Serializer
@@ -12,7 +12,7 @@ class UserRegisterAPIViewSerializer(serializers.Serializer):
     password2 = serializers.CharField(max_length=128, write_only=True)
 
     def validate_username(self, value):
-        if Users.objects.filter(username=value).exists():
+        if User.objects.filter(username=value).exists():
             raise serializers.ValidationError('Username already exists')
         return value
 
@@ -72,7 +72,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=128, write_only=True)
 
     class Meta:
-        model = Users
+        model = User
         fields = ['username', 'email', 'password']
 
     def create(self, validated_data):

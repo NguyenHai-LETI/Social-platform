@@ -15,10 +15,10 @@ from .views import (
 
 urlpatterns = [
     # API using APIView
-    path('apiview/register/', RegisterAPIView.as_view(), name='register_api'),
-    path('apiview/login/', LoginAPIView.as_view(), name='login_api'),
-    path('apiview/token/refresh', TokenRefreshAPIView.as_view(), name='profile'),
-    path('apiview/protected/', ProtectedAPIView.as_view(), name='protected_api'),
+    path('api-view/register/', RegisterAPIView.as_view(), name='register_api'),
+    path('api-view/login/', LoginAPIView.as_view(), name='login_api'),
+    path('api-view/token/refresh', TokenRefreshAPIView.as_view(), name='profile'),
+    path('api-view/protected/', ProtectedAPIView.as_view(), name='protected_api'),
 
     #API using GenericAPIView
     path('register/', RegisterGenericView.as_view(), name='register_generic'),
