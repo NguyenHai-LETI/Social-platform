@@ -85,3 +85,10 @@
 [2025-08-18 16:13:31,766] WARNING [django.server:213] "POST /api/api-view/token/refresh HTTP/1.1" 401 250
 [2025-08-18 16:14:15,498] INFO [myapp:101] Successfully refresh token!
 [2025-08-18 16:14:15,500] INFO [django.server:213] "POST /api/api-view/token/refresh HTTP/1.1" 200 560
+[2025-08-18 16:29:12,835] INFO [django.utils.autoreload:667] Watching for file changes with StatReloader
+[2025-08-18 16:29:15,804] INFO [django.server:213] "GET /swagger-ui/ HTTP/1.1" 200 17819
+[2025-08-18 16:29:15,834] INFO [django.server:213] "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 29468
+[2025-08-18 16:29:15,836] INFO [django.server:213] "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 14879
+[2025-08-18 16:29:16,113] INFO [django.server:213] "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
+[2025-08-18 16:29:16,129] INFO [django.server:213] "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 4700
+[2025-08-18 16:29:16,184] INFO [django.server:213] "GET /schema/ HTTP/1.1" 200 18197
