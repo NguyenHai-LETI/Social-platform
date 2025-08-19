@@ -9,3 +9,5 @@ __pycache__/
 
 #logs hệ thống
 /backend/social_app/logs/
+
+/backend/social_app/db.sqlite3
