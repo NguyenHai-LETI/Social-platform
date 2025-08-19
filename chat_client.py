@@ -2,11 +2,17 @@
 
 import asyncio
 import socketio
+from concurrent.futures import ThreadPoolExecutor
+
 
 sio = socketio.AsyncClient()
-
+executor = ThreadPoolExecutor(max_workers=1)
 USER_NAME = 'Simple Python Client'
 ROOM_NAME = 'general'
+
+# Hàm bất đồng bộ để nhận input từ bàn phím
+async def get_input(prompt):
+    return await asyncio.get_event_loop().run_in_executor(executor, input, prompt)
 
 
 @sio.event
@@ -28,22 +34,15 @@ async def chat_message(data):
 async def send_messages():
     await asyncio.sleep(2)  # Đợi 2 giây để đảm bảo đã join room
 
-    messages = [
-        "Xin chào mọi người!",
-        "Đây là một tin nhắn tự động từ client Python.",
-    ]
-
-    for msg in messages:
-        await sio.emit(
-            'chat_message',
-            {'room_name': ROOM_NAME, 'user_name': USER_NAME, 'message': msg}
+    while True:
+        message = await get_input('>')
+        if message.lower()  == 'quit':
+            break
+        await sio.emit('chat_message',
+                       {'room_name':ROOM_NAME,'user_name': USER_NAME, 'message': message}
         )
-        print(f'Sent: {msg}')
-        await asyncio.sleep(1)
 
-    # Cho phép client tồn tại trong 5 giây rồi ngắt kết nối
-    print("Sending finished, staying online for 5 more seconds...")
-    await asyncio.sleep(5)
+    # ngắt kết nối
     print("Exiting...")
     await sio.disconnect()
 
