@@ -3,4 +3,7 @@
 
 # Bỏ qua thư mục môi trường ảo của Python
 backend_env/
+
 __pycache__/
+
+backend/social_app/logs
