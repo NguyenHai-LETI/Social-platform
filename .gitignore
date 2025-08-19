@@ -4,6 +4,8 @@
 # Bỏ qua thư mục môi trường ảo của Python
 backend_env/
 
+#pycache của pycharm
 __pycache__/
 
-backend/social_app/logs
+#logs hệ thống
+/backend/social_app/logs/
