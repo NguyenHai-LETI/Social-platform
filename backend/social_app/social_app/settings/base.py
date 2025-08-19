@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "channels",
     "drf_spectacular",
     "rest_framework_simplejwt.token_blacklist",
+    'chat'
 ]
 
 MIDDLEWARE = [

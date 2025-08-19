@@ -1,26 +1,16 @@
-"""
-ASGI config for social_app project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
-"""
-
 import os
-from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter, URLRouter
+import socketio
 from django.core.asgi import get_asgi_application
 
-import chat.routing
+#set env environment for django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_app.settings.develop')
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_app.settings')
+#Init ASGI Application for HTTP
+django_asgi_app = get_asgi_application()
 
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AuthMiddlewareStack(
-        URLRouter(
-            chat.routing.websocket_urlpatterns  # Định nghĩa URL patterns cho websocket
-        )
-    ),
-})
+from .socket_logic import sio
+
+"""Kết hợp ứng dụng Socket.IO và Django
+Mọi yêu cầu đến đường dẫn '/socket.io/' sẽ được xử lý bởi sio.
+Các yêu cầu khác sẽ được chuyển cho Django."""
+application = socketio.ASGIApp(sio, other_asgi_app=django_asgi_app)
