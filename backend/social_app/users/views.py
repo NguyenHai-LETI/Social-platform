@@ -4,6 +4,7 @@ import logging
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
@@ -12,16 +13,21 @@ from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.extensions import OpenApiAuthenticationExtension
+from django.contrib.auth import get_user_model
 
 from .serializers import (
     UserRegisterAPIViewSerializer,
     UserLoginAPIViewSerializer,
     TokenRefreshAPIViewSerializer,
-    RegisterSerializer
+    RegisterSerializer,
+    UserSerializer
 )
 
 logger = logging.getLogger('myapp')
-# Define 2 methods for register-login: using APIView and using genericsView/others built-in view with serializers support
+User = get_user_model()
+
+"""Define 2 methods for register-login: using APIView and using 
+genericsView/others built-in view with serializers support"""
 # 1. Using APIView
 class RegisterAPIView(APIView):
     permission_classes = (AllowAny,)
@@ -59,6 +65,7 @@ class LoginAPIView(APIView):
         tags=['Using APIView'],
     )
     def post(self, request):
+        logger.info("Login API được gọi!")
         serializer = UserLoginAPIViewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)  # valid_field and object in UserLoginAPIViewSerializer
 
@@ -111,25 +118,18 @@ class TokenRefreshAPIView(APIView):
             raise InvalidToken({'detail': 'Refresh token error or blacklisted'})
 
 
-class ProtectedAPIView(APIView):
-    # DRF tự động validate token
+
+class UserListView(ListAPIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
+    serializer_class = UserSerializer
 
-    @extend_schema(
-        summary="Protected API",
-        description="Test API need authentication",
-        tags=['Using APIView']
-    )
-    def get(self, request):
-        user = request.user  # request.user là người dùng đã được xác thực
+    def get_queryset(self):
+        queryset = User.objects.all()
+        if self.request.user.is_authenticated: #except current user
+            queryset = queryset.exclude(id=self.request.user.id)
+        return queryset
 
-        response_data = {
-            "message": 'Lấy thông tin thành công',
-            "username": user.username,
-            "email": user.email,
-        }
-        return Response(response_data, status=status.HTTP_200_OK)
 
 
 # 2. Using genericView/other built-in view

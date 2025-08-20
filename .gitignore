@@ -11,3 +11,5 @@ __pycache__/
 /backend/social_app/logs/
 
 /backend/social_app/db.sqlite3
+
+/backend/social_app/schema.yml

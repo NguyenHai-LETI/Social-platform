@@ -1,5 +1,3 @@
-# chat_client.py
-
 import asyncio
 import socketio
 from concurrent.futures import ThreadPoolExecutor
@@ -28,7 +26,7 @@ async def disconnect():
 
 @sio.event
 async def chat_message(data):
-    print(f"[{data['user_name']}]: {data['message']}")
+    print(f"\r[{data['user_name']}]: {data['message']}\n> ", end='', flush=True)
 
 
 async def send_messages():

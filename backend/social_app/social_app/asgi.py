@@ -8,7 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_app.settings.develop')
 #Init ASGI Application for HTTP
 django_asgi_app = get_asgi_application()
 
-from .socket_logic import sio
+from sockets.socket_server import sio
 
 """Kết hợp ứng dụng Socket.IO và Django
 Mọi yêu cầu đến đường dẫn '/socket.io/' sẽ được xử lý bởi sio.

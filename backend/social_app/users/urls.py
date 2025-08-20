@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
 from .views import (
     RegisterAPIView,
     LoginAPIView,
-    ProtectedAPIView,
+    UserListView,
     TokenRefreshAPIView,
     RegisterGenericView
 )
@@ -18,7 +18,7 @@ urlpatterns = [
     path('api-view/register/', RegisterAPIView.as_view(), name='register_api'),
     path('api-view/login/', LoginAPIView.as_view(), name='login_api'),
     path('api-view/token/refresh', TokenRefreshAPIView.as_view(), name='profile'),
-    path('api-view/protected/', ProtectedAPIView.as_view(), name='protected_api'),
+    path('api-view/list/', UserListView.as_view(), name='users_list_api'),
 
     #API using GenericAPIView
     path('register/', RegisterGenericView.as_view(), name='register_generic'),
