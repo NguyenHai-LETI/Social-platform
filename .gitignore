@@ -1,0 +1,13 @@
+# Bỏ qua thư mục cấu hình của IDE
+.idea/
+
+# Bỏ qua thư mục môi trường ảo của Python
+backend_env/
+
+#pycache của pycharm
+__pycache__/
+
+#logs hệ thống
+/backend/social_app/logs/
+
+/backend/social_app/db.sqlite3

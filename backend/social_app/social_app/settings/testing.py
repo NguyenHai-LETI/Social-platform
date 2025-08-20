@@ -1,0 +1,15 @@
+from .base import *
+
+environ.Env.read_env(os.path.join(BASE_DIR.parent, "envs/testing.envs"))
+
+DEBUG = False
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
+    }
+}
+
+PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
